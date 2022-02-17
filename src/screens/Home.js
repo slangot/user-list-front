@@ -38,8 +38,8 @@ const Home = () => {
 
       {/* Card list foreach users */}
       <ul className="list-container">
-        {fakeData.map((user) => (
-          <Card user={user} />
+        {fakeData.map((user, index) => (
+          <Card key={index} user={user} />
         ))}
       </ul>
     </div>
