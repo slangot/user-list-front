@@ -1,8 +1,28 @@
 import React from "react";
 
+import Swal from "sweetalert2";
+
 import "./Card.css";
 
 const Card = ({ user }) => {
+  const handleUpdate = () => {
+    Swal.fire({
+      title: "Modifier un utilisateur",
+      text: "Verifier les infos utilisateurs",
+      icon: "success",
+      confirmButtonText: "Modifier",
+    });
+  };
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Supprimer un utilisateur",
+      text: "Supprimer l'utilisateurs",
+      icon: "error",
+      confirmButtonText: "Supprimer",
+    });
+  };
+
   console.log(user);
   return (
     <div className="Card">
@@ -11,8 +31,8 @@ const Card = ({ user }) => {
       </div>
       <div className="second-row">mail: {user.mail}</div>
       <div className="buttons-column">
-        <button>&#9997;</button>
-        <button>&#10060;</button>
+        <button onClick={() => handleUpdate()}>&#9997;</button>
+        <button onClick={() => handleDelete()}>&#10060;</button>
       </div>
     </div>
   );
