@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Card from "../components/Card";
 
@@ -31,6 +31,8 @@ const Home = () => {
     },
   ];
 
+  const [userData, setUserData] = useState(fakeData);
+
   return (
     <div className="Home">
       <h1>Gestionnaire des utilisateurs</h1>
@@ -38,7 +40,7 @@ const Home = () => {
 
       {/* Card list foreach users */}
       <ul className="list-container">
-        {fakeData.map((user, index) => (
+        {userData.map((user, index) => (
           <Card key={index} user={user} />
         ))}
       </ul>
