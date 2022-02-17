@@ -33,6 +33,12 @@ const Home = () => {
 
   const [userData, setUserData] = useState(fakeData);
 
+  const updateUser = (id) => {};
+
+  const deteleUser = (id) => {
+    setUserData(userData.filter((user) => user.id != id));
+  };
+
   return (
     <div className="Home">
       <h1>Gestionnaire des utilisateurs</h1>
