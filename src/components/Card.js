@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 import "./Card.css";
 
-const Card = ({ user }) => {
+const Card = ({ user, deleteUser }) => {
   const handleUpdate = () => {
     Swal.fire({
       title: "Modifier un utilisateur",
@@ -20,6 +20,9 @@ const Card = ({ user }) => {
       text: "Supprimer l'utilisateurs",
       icon: "error",
       confirmButtonText: "Supprimer",
+    }).then((result) => {
+      deleteUser(user.id);
+      Swal.fire("Utilisateur supprimé", "", "success");
     });
   };
 
