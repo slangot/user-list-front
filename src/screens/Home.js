@@ -35,7 +35,7 @@ const Home = () => {
 
   const updateUser = (id) => {};
 
-  const deteleUser = (id) => {
+  const deleteUser = (id) => {
     setUserData(userData.filter((user) => user.id != id));
   };
 
@@ -47,7 +47,7 @@ const Home = () => {
       {/* Card list foreach users */}
       <ul className="list-container">
         {userData.map((user, index) => (
-          <Card key={index} user={user} />
+          <Card key={index} user={user} deleteUser={deleteUser} />
         ))}
       </ul>
     </div>
