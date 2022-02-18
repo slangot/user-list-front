@@ -26,11 +26,12 @@ const Card = ({ user, deleteUser }) => {
     });
   };
 
-  console.log(user);
   return (
     <div className="Card">
       <div className="first-row">
-        id: {user.id} {user.firstname} {user.lastname}
+        <span className="first-row-info">id: {user.id}</span>{" "}
+        <span className="first-row-info">{user.firstname}</span>{" "}
+        <span className="first-row-info">{user.lastname}</span>
       </div>
       <div className="second-row">mail: {user.mail}</div>
       <div className="buttons-column">
