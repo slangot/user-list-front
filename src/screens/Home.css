@@ -1,0 +1,14 @@
+.Home {
+  width: 50%;
+  margin: 20px auto;
+  border-radius: 5px;
+  padding: 20px;
+
+  text-align: center;
+}
+
+@media screen and (max-width: 750px) {
+  .Home {
+    width: 80%;
+  }
+}
