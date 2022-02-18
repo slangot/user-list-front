@@ -7,7 +7,11 @@ import Card from "../components/Card";
 import "./Home.css";
 
 const Home = () => {
+  // State that will contain the userData from the back
   const [userData, setUserData] = useState();
+
+  // State that allowed to refresh the data
+  const [refreshData, setRefreshData] = useState(false);
 
   const getData = async () => {
     const resData = await axios
@@ -18,6 +22,7 @@ const Home = () => {
       });
   };
 
+  // Function to update user data
   const updateUser = (id, firstname, lastname, mail) => {
     // Object that will contain the keys and values and that will be send to the back
     const valuesToUpdate = {
@@ -50,6 +55,7 @@ const Home = () => {
       currentMail = valuesToUpdate.mail;
     }
 
+    // Confirm alert displaying the actual values (new ones and not changing ones)
     Swal.fire({
       title: "Confirmer les modifications",
       html: `<ul class="confirm-list"><li>Prénom: ${currentFirstname}</li><li>Nom: ${currentLastname}</li><li>Email: ${currentMail}</li></ul>`,
@@ -60,6 +66,7 @@ const Home = () => {
       confirmButtonText: "Confirmer",
       cancelButtonText: "Annuler",
     }).then((res) => {
+      // If isConfirmed is clicked we send the modification to the back
       if (res.isConfirmed) {
         const updateData = async () => {
           const resData = await axios
@@ -80,12 +87,13 @@ const Home = () => {
               }
             });
         };
-
         updateData();
+        setRefreshData(true);
       }
     });
   };
 
+  // Function to delete an user
   const deleteUser = (userId) => {
     Swal.fire({
       title: "Êtes vous sûr de vouloir supprimer cette utilisateur ?",
@@ -112,14 +120,23 @@ const Home = () => {
             });
         };
         deleteData();
-        getData();
+        setRefreshData(true);
       }
     });
   };
 
+  // UseEffect on mounting component
   useEffect(() => {
     getData();
   }, []);
+
+  // UseEffect when action on the DB has been done
+  useEffect(() => {
+    if (refreshData) {
+      getData();
+      setRefreshData(false);
+    }
+  }, [refreshData]);
 
   return (
     <div className="Home">
@@ -135,6 +152,7 @@ const Home = () => {
               user={user}
               deleteUser={deleteUser}
               updateUser={updateUser}
+              refreshData={refreshData}
             />
           ))}
       </ul>
