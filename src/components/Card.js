@@ -10,8 +10,8 @@ const Card = ({ user, deleteUser, updateUser }) => {
 
   const [showUpdateBox, setShowUpdateBox] = useState(false);
 
-  const handleShowUpdateBox = () => {
-    setShowUpdateBox(!showUpdateBox);
+  const handleShowUpdateBox = (close) => {
+    setShowUpdateBox(close ? false : !showUpdateBox);
   };
 
   // Handlers to set the new states
@@ -58,6 +58,13 @@ const Card = ({ user, deleteUser, updateUser }) => {
             : "edit-container edit-container-hide"
         }
       >
+        <h3>Modifier l'utilisateur</h3>
+        <button
+          className="close-button"
+          onClick={() => handleShowUpdateBox(true)}
+        >
+          &#10060;
+        </button>
         <div className="edit-field">
           <label htmlFor="firstname">Prénom :</label>
           <input
@@ -88,7 +95,9 @@ const Card = ({ user, deleteUser, updateUser }) => {
             onChange={(e) => handleMail(e.target.value)}
           />
         </div>
-        <button onClick={() => handleUpdate()}>Modifier</button>
+        <button className="submit-button" onClick={() => handleUpdate()}>
+          Modifier
+        </button>
       </div>
     </>
   );
