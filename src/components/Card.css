@@ -1,7 +1,7 @@
 .Card {
   position: relative;
   width: 60%;
-  height: 50px;
+  height: 55px;
   padding: 10px;
   margin: 10px auto;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
@@ -15,22 +15,24 @@
 }
 
 .first-row-info {
-  margin: 0 10px;
+  margin: 5px 10px;
 }
 
 .second-row {
   position: relative;
   display: flex;
   flex-direction: row;
-  margin: 10px;
+  margin: 5px 10px;
 }
 
 .buttons-column {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: absolute;
   right: 0;
   top: 0;
+  height: 100%;
 }
 
 .buttons-column button {
@@ -41,10 +43,12 @@
   width: 30px;
   height: 30px;
   transition: 0.2s linear;
+  margin: 5px;
 }
 
 .buttons-column button:hover {
   background-color: rgba(0, 0, 0, 0.255);
+  cursor: pointer;
 }
 
 .edit-container {
