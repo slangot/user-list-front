@@ -13,6 +13,30 @@ const Home = () => {
   // State that allowed to refresh the data
   const [refreshData, setRefreshData] = useState(false);
 
+  // New user states
+  const [showNewUser, setShowNewUser] = useState(false);
+  const [newUserFirstname, setNewUserFirstname] = useState();
+  const [newUserLastname, setNewUserLastname] = useState();
+  const [newUserMail, setNewUserMail] = useState();
+
+  const handleShowNewUser = () => {
+    setShowNewUser(!showNewUser);
+  };
+
+  const handleNewUserFirstname = (newValue) => {
+    setNewUserFirstname(newValue);
+  };
+
+  const handleNewUserLastname = (newValue) => {
+    setNewUserLastname(newValue);
+  };
+
+  const handleNewUserMail = (newValue) => {
+    setNewUserMail(newValue);
+  };
+
+  // Function to fetch the user datas from the DB
+
   const getData = async () => {
     const resData = await axios
       .get(`http://localhost:3001/user/all`)
@@ -20,6 +44,51 @@ const Home = () => {
         setUserData(result.data);
         console.log(result.data);
       });
+  };
+
+  // Function to add a new user
+  const insertUser = () => {
+    // Confirm alert displaying the new values
+    Swal.fire({
+      title: "Confirmer les informations",
+      html: `<ul class="confirm-list"><li>Prénom: ${newUserFirstname}</li><li>Nom: ${newUserLastname}</li><li>Email: ${newUserMail}</li></ul>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "green",
+      cancelButtonColor: "red",
+      confirmButtonText: "Confirmer",
+      cancelButtonText: "Annuler",
+    }).then((res) => {
+      // If isConfirmed is clicked we send the modification to the back
+      if (res.isConfirmed) {
+        const insertData = async () => {
+          const resData = await axios
+            .post(`http://localhost:3001/user/`, {
+              firstname: newUserFirstname,
+              lastname: newUserLastname,
+              mail: newUserMail,
+            })
+            .then((result) => {
+              if (result.status === 200) {
+                Swal.fire(
+                  "Ajouté",
+                  "L'utilisateur a bien été ajouté",
+                  "success"
+                );
+              } else {
+                Swal.fire(
+                  "Erreur",
+                  "Une erreur s'est produite lors de l'ajout",
+                  "danger"
+                );
+              }
+            });
+        };
+        insertData();
+        handleShowNewUser();
+        setRefreshData(true);
+      }
+    });
   };
 
   // Function to update user data
@@ -141,7 +210,63 @@ const Home = () => {
   return (
     <div className="Home">
       <h1>Gestionnaire d'utilisateurs</h1>
-      <button className="adding-button">Ajouter</button>
+      <button
+        className={
+          showNewUser
+            ? "adding-button adding-button-hide"
+            : "adding-button adding-button-show"
+        }
+        onClick={() => handleShowNewUser()}
+      >
+        &#10133;&nbsp;&nbsp;Ajouter
+      </button>
+
+      {/* Container to create a new user */}
+      <div
+        className={
+          showNewUser
+            ? "new-user-container new-user-container-show"
+            : "new-user-container new-user-container-hide"
+        }
+      >
+        <h3>Ajouter un nouvel utilisateur</h3>
+        <button className="close-button" onClick={() => handleShowNewUser()}>
+          &#10060;
+        </button>
+        <div className="new-user-field">
+          <label htmlFor="firstname">Prénom :</label>
+          <input
+            type="text"
+            name="firstname"
+            id="firstname"
+            placeholder="Prénom"
+            onChange={(e) => handleNewUserFirstname(e.target.value)}
+          />
+        </div>
+        <div className="new-user-field">
+          <label htmlFor="lastname">Nom :</label>
+          <input
+            type="text"
+            name="lastname"
+            id="lastname"
+            placeholder="Nom"
+            onChange={(e) => handleNewUserLastname(e.target.value)}
+          />
+        </div>
+        <div className="new-user-field">
+          <label htmlFor="mail">Email :</label>
+          <input
+            type="mail"
+            name="mail"
+            id="mail"
+            placeholder="monemail@mail.com"
+            onChange={(e) => handleNewUserMail(e.target.value)}
+          />
+        </div>
+        <button className="submit-button" onClick={() => insertUser()}>
+          Ajouter
+        </button>
+      </div>
 
       {/* Card list foreach users */}
       <ul className="list-container">
