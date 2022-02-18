@@ -25,6 +25,89 @@
   font-weight: bold;
 }
 
+.adding-button-show {
+  display: block;
+}
+
+.adding-button-hide {
+  display: none;
+}
+
+.new-user-container {
+  position: relative;
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  margin: 10px auto;
+  margin-bottom: 30px;
+  padding: 10px;
+  position: relative;
+  display: none;
+  transition: 0.2s linear;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.new-user-container h3 {
+  text-align: center;
+}
+
+.new-user-container-hide {
+  display: none;
+}
+
+.new-user-container-show {
+  display: flex;
+}
+
+.new-user-field {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  padding-top: 10px;
+}
+
+.new-user-field label {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.new-user-field input {
+  width: 90%;
+  margin: 10px;
+  padding: 5px;
+  border: none;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button {
+  cursor: pointer;
+  width: 100px;
+  margin: 0 auto;
+  padding: 10px 5px;
+  background-color: white;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  border: none;
+  transition: 0.2s linear;
+  text-transform: uppercase;
+}
+
+.submit-button:hover {
+  background-color: rgba(0, 0, 0, 0.255);
+  color: white;
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+.close-button {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: none;
+  background-color: transparent;
+  transition: 0.2s linear;
+}
+
 @media screen and (max-width: 750px) {
   .Home {
     width: 80%;
