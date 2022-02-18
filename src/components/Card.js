@@ -12,7 +12,7 @@ const Card = ({ user, deleteUser, updateUser, refreshData }) => {
 
   useEffect(() => {
     console.log(refreshData);
-    if (refreshData) setShowUpdateBox(true);
+    if (refreshData) setShowUpdateBox(false);
   }, [refreshData]);
 
   const handleShowUpdateBox = (status) => {
