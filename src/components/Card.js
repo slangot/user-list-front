@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Card.css";
 
-const Card = ({ user, deleteUser, updateUser }) => {
+const Card = ({ user, deleteUser, updateUser, refreshData }) => {
   // Initialisation of the user data with useState
   const [userFirstname, setUserFirstname] = useState();
   const [userLastname, setUserLastname] = useState();
@@ -10,8 +10,13 @@ const Card = ({ user, deleteUser, updateUser }) => {
 
   const [showUpdateBox, setShowUpdateBox] = useState(false);
 
-  const handleShowUpdateBox = (close) => {
-    setShowUpdateBox(close ? false : !showUpdateBox);
+  useEffect(() => {
+    console.log(refreshData);
+    if (refreshData) setShowUpdateBox(true);
+  }, [refreshData]);
+
+  const handleShowUpdateBox = (status) => {
+    setShowUpdateBox(status ? true : false);
   };
 
   // Handlers to set the new states
@@ -39,7 +44,7 @@ const Card = ({ user, deleteUser, updateUser }) => {
 
   return (
     <>
-      <div className="Card">
+      <div className={showUpdateBox ? "Card card-update" : "Card"}>
         <div className="first-row">
           <span className="first-row-info">ID: {user.ID}</span>
           <span className="first-row-info">{user.firstname}</span>
@@ -47,7 +52,9 @@ const Card = ({ user, deleteUser, updateUser }) => {
         </div>
         <div className="second-row">mail: {user.mail}</div>
         <div className="buttons-column">
-          <button onClick={() => handleShowUpdateBox()}>&#9997;</button>
+          <button onClick={() => handleShowUpdateBox(!showUpdateBox)}>
+            &#9997;
+          </button>
           <button onClick={() => handleDelete(user.ID)}>&#10060;</button>
         </div>
       </div>
@@ -61,7 +68,7 @@ const Card = ({ user, deleteUser, updateUser }) => {
         <h3>Modifier l'utilisateur</h3>
         <button
           className="close-button"
-          onClick={() => handleShowUpdateBox(true)}
+          onClick={() => handleShowUpdateBox(false)}
         >
           &#10060;
         </button>
