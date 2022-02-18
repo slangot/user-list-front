@@ -16,13 +16,19 @@ const Card = ({ user, deleteUser }) => {
 
   const handleDelete = () => {
     Swal.fire({
-      title: "Supprimer un utilisateur",
-      text: "Supprimer l'utilisateurs",
-      icon: "error",
-      confirmButtonText: "Supprimer",
+      title: "Êtes vous sûr de vouloir supprimer cette utilisateur ?",
+      text: "Cette action est irréversible",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "green",
+      cancelButtonColor: "red",
+      confirmButtonText: "Oui, supprimer",
+      cancelButtonText: "Non, annuler",
     }).then((result) => {
-      deleteUser(user.id);
-      Swal.fire("Utilisateur supprimé", "", "success");
+      if (result.isConfirmed) {
+        Swal.fire("Supprimé", "L'utilisateur a bien été supprimé", "success");
+        deleteUser(user.id);
+      }
     });
   };
 
