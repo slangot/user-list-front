@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import Card from "../components/Card";
 
+import "./Home.css";
+
 const Home = () => {
   // Array of front fake datas
   const fakeData = [
@@ -33,7 +35,9 @@ const Home = () => {
 
   const [userData, setUserData] = useState(fakeData);
 
-  const updateUser = (id) => {};
+  const updateUser = (id, firstname, lastname, mail) => {
+    console.log(id, firstname, lastname, mail);
+  };
 
   const deleteUser = (id) => {
     setUserData(userData.filter((user) => user.id != id));
@@ -41,13 +45,18 @@ const Home = () => {
 
   return (
     <div className="Home">
-      <h1>Gestionnaire des utilisateurs</h1>
+      <h1>Gestionnaire d'utilisateurs</h1>
       <button>Ajouter</button>
 
       {/* Card list foreach users */}
       <ul className="list-container">
         {userData.map((user, index) => (
-          <Card key={index} user={user} deleteUser={deleteUser} />
+          <Card
+            key={index}
+            user={user}
+            deleteUser={deleteUser}
+            updateUser={updateUser}
+          />
         ))}
       </ul>
     </div>
