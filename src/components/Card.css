@@ -8,18 +8,21 @@
 }
 
 .first-row {
+  position: relative;
   display: flex;
+  width: 80%;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 5px;
+}
+
+.first-row-info {
+  margin: 0 10px;
 }
 
 .second-row {
   position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 5px;
+  margin: 10px;
 }
 
 .buttons-column {
