@@ -41,8 +41,8 @@ const Home = () => {
     const resData = await axios
       .get(`http://localhost:3001/user/all`)
       .then((result) => {
-        setUserData(result.data);
-        console.log(result.data);
+        const sortedData = result.data.sort(sortByLastname);
+        setUserData(sortedData);
       });
   };
 
@@ -194,6 +194,17 @@ const Home = () => {
     });
   };
 
+  // Function to filter by lastname
+  const sortByLastname = (a, b) => {
+    if (a.lastname < b.lastname) {
+      return -1;
+    }
+    if (a.lastname > b.lastname) {
+      return 1;
+    }
+    return 0;
+  };
+
   // UseEffect on mounting component
   useEffect(() => {
     getData();
@@ -271,15 +282,17 @@ const Home = () => {
       {/* Card list foreach users */}
       <ul className="list-container">
         {userData &&
-          userData.map((user, index) => (
-            <Card
-              key={index}
-              user={user}
-              deleteUser={deleteUser}
-              updateUser={updateUser}
-              refreshData={refreshData}
-            />
-          ))}
+          userData
+            .sort()
+            .map((user, index) => (
+              <Card
+                key={index}
+                user={user}
+                deleteUser={deleteUser}
+                updateUser={updateUser}
+                refreshData={refreshData}
+              />
+            ))}
       </ul>
     </div>
   );
