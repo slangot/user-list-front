@@ -46,3 +46,69 @@
 .buttons-column button:hover {
   background-color: rgba(0, 0, 0, 0.255);
 }
+
+.edit-container {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  margin: 10px 0 30px 0;
+  padding: 10px;
+  position: relative;
+  display: none;
+  transition: 0.2s linear;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+.edit-container-hide {
+  display: none;
+}
+
+.edit-container-show {
+  display: flex;
+}
+
+.edit-field {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+}
+
+.edit-field label {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.edit-field input {
+  width: 80%;
+  margin: 10px;
+  padding: 5px;
+  border: none;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+.edit-container button {
+  cursor: pointer;
+  width: 100px;
+  margin: 0 auto;
+  padding: 10px 5px;
+  background-color: white;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  border: none;
+  transition: 0.2s linear;
+  text-transform: uppercase;
+}
+
+.edit-container button:hover {
+  background-color: rgba(0, 0, 0, 0.255);
+  color: white;
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+.confirm-list {
+  list-style-type: none;
+  text-align: left;
+}
+
+.confirm-list li {
+  margin: 10px 0;
+}
