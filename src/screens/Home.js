@@ -16,6 +16,9 @@ const Home = () => {
   // Filter choice state init on lastname
   const [filterChoice, setFilterChoice] = useState("lastname");
 
+  // Mail regex for validation
+  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
   const handleFilterChoice = (choice) => {
     setFilterChoice(choice);
   };
@@ -56,6 +59,16 @@ const Home = () => {
 
   // Function to add a new user
   const insertUser = () => {
+    // Email format validation
+    if (!newUserMail.match(mailformat)) {
+      Swal.fire({
+        title: "Email non valide",
+        icon: "warning",
+        confirmButtonColor: "orange",
+        confirmButtonText: "Compris",
+      });
+      return;
+    }
     // Confirm alert displaying the new values
     Swal.fire({
       title: "Confirmer les informations",
@@ -128,7 +141,6 @@ const Home = () => {
     }
 
     if (mail) {
-      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (mail.match(mailformat)) {
         valuesToUpdate.mail = mail;
         currentMail = valuesToUpdate.mail;
