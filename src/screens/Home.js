@@ -17,7 +17,10 @@ const Home = () => {
   const [filterChoice, setFilterChoice] = useState("lastname");
 
   // Mail regex for validation
-  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const mailValidationFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  // Name regex for validation
+  const nameValidationFormat = /^[a-z](.*[a-z])?$/gim;
 
   const handleFilterChoice = (choice) => {
     setFilterChoice(choice);
@@ -45,6 +48,32 @@ const Home = () => {
     setNewUserMail(newValue);
   };
 
+  const handleMailValidation = (mail) => {
+    return mail.match(mailValidationFormat);
+  };
+
+  const handleNameValidation = (name) => {
+    return name.match(nameValidationFormat);
+  };
+
+  const alertMailFailValidation = () => {
+    Swal.fire({
+      title: "Email non valide",
+      icon: "warning",
+      confirmButtonColor: "orange",
+      confirmButtonText: "Compris",
+    });
+  };
+
+  const alertNameFailValidation = () => {
+    Swal.fire({
+      title: "Prénom ou nom non valide",
+      icon: "warning",
+      confirmButtonColor: "orange",
+      confirmButtonText: "Compris",
+    });
+  };
+
   // Function to fetch the user datas from the DB
 
   const getData = async () => {
@@ -59,16 +88,23 @@ const Home = () => {
 
   // Function to add a new user
   const insertUser = () => {
-    // Email format validation
-    if (!newUserMail.match(mailformat)) {
-      Swal.fire({
-        title: "Email non valide",
-        icon: "warning",
-        confirmButtonColor: "orange",
-        confirmButtonText: "Compris",
-      });
+    // Firstname, Lastname and Email format validation
+
+    if (!handleNameValidation(newUserFirstname)) {
+      alertNameFailValidation();
       return;
     }
+
+    if (!handleNameValidation(newUserLastname)) {
+      alertNameFailValidation();
+      return;
+    }
+
+    if (!handleMailValidation(newUserMail)) {
+      alertMailFailValidation();
+      return;
+    }
+
     // Confirm alert displaying the new values
     Swal.fire({
       title: "Confirmer les informations",
@@ -131,26 +167,31 @@ const Home = () => {
     currentMail = getCurrentUserInfo.mail;
 
     if (firstname) {
-      valuesToUpdate.firstname = firstname;
-      currentFirstname = valuesToUpdate.firstname;
+      if (handleNameValidation(firstname)) {
+        valuesToUpdate.firstname = firstname;
+        currentFirstname = valuesToUpdate.firstname;
+      } else {
+        alertNameFailValidation();
+        return;
+      }
     }
 
     if (lastname) {
-      valuesToUpdate.lastname = lastname;
-      currentLastname = valuesToUpdate.lastname;
+      if (handleNameValidation(lastname)) {
+        valuesToUpdate.lastname = lastname;
+        currentLastname = valuesToUpdate.lastname;
+      } else {
+        alertNameFailValidation();
+        return;
+      }
     }
 
     if (mail) {
-      if (mail.match(mailformat)) {
+      if (handleMailValidation(mail)) {
         valuesToUpdate.mail = mail;
         currentMail = valuesToUpdate.mail;
       } else {
-        Swal.fire({
-          title: "Email non valide",
-          icon: "warning",
-          confirmButtonColor: "orange",
-          confirmButtonText: "Compris",
-        });
+        alertMailFailValidation();
         return;
       }
     }
