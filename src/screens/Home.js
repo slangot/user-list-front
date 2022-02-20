@@ -78,7 +78,7 @@ const Home = () => {
 
   const getData = async () => {
     const resData = await axios
-      .get(`http://localhost:3001/user/all`)
+      .get(`http://localhost:3001/users/all`)
       .then((result) => {
         // The data from the DB is directly sorted
         const sortedData = result.data.sort(sortByChoice);
@@ -120,7 +120,7 @@ const Home = () => {
       if (res.isConfirmed) {
         const insertData = async () => {
           const resData = await axios
-            .post(`http://localhost:3001/user/`, {
+            .post(`http://localhost:3001/users/`, {
               firstname: newUserFirstname,
               lastname: newUserLastname,
               mail: newUserMail,
@@ -211,7 +211,7 @@ const Home = () => {
       if (res.isConfirmed) {
         const updateData = async () => {
           const resData = await axios
-            .put(`http://localhost:3001/user/`, valuesToUpdate)
+            .put(`http://localhost:3001/users/`, valuesToUpdate)
             .then((result) => {
               if (result.status === 200) {
                 Swal.fire(
@@ -249,7 +249,7 @@ const Home = () => {
       if (res.isConfirmed) {
         const deleteData = async () => {
           const resData = await axios
-            .delete(`http://localhost:3001/user/${userId}`)
+            .delete(`http://localhost:3001/users/${userId}`)
             .then((result) => {
               if (result.status === 200) {
                 Swal.fire(
