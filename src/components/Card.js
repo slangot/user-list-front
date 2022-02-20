@@ -7,11 +7,9 @@ const Card = ({ user, deleteUser, updateUser, refreshData }) => {
   const [userFirstname, setUserFirstname] = useState();
   const [userLastname, setUserLastname] = useState();
   const [userMail, setUserMail] = useState();
-
   const [showUpdateBox, setShowUpdateBox] = useState(false);
 
   useEffect(() => {
-    console.log(refreshData);
     if (refreshData) setShowUpdateBox(false);
   }, [refreshData]);
 
