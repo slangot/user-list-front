@@ -13,18 +13,11 @@ const Home = () => {
   // State that allowed to refresh the data
   const [refreshData, setRefreshData] = useState(false);
 
-  // Filter choice state init on lastname
-  const [filterChoice, setFilterChoice] = useState("lastname");
-
   // Mail regex for validation
   const mailValidationFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   // Name regex for validation
   const nameValidationFormat = /^[a-z](.*[a-z])?$/gim;
-
-  const handleFilterChoice = (choice) => {
-    setFilterChoice(choice);
-  };
 
   // New user states
   const [showNewUser, setShowNewUser] = useState(false);
@@ -32,6 +25,7 @@ const Home = () => {
   const [newUserLastname, setNewUserLastname] = useState();
   const [newUserMail, setNewUserMail] = useState();
 
+  // Handlers to set states
   const handleShowNewUser = () => {
     setShowNewUser(!showNewUser);
   };
@@ -75,7 +69,6 @@ const Home = () => {
   };
 
   // Function to fetch the user datas from the DB
-
   const getData = async () => {
     const resData = await axios
       .get(`http://localhost:3001/users/all`)
@@ -266,62 +259,15 @@ const Home = () => {
     });
   };
 
-  // Function to filter by specific choice
+  // Function to filter by lastname
   const sortByChoice = (a, b) => {
-    console.log("filter : " + filterChoice);
-    if (!filterChoice) {
-      if (a.lastname < b.lastname) {
-        return -1;
-      }
-      if (a.lastname > b.lastname) {
-        return 1;
-      }
-      return 0;
-    } else {
-      switch (filterChoice) {
-        case "id":
-          if (a.ID < b.ID) {
-            return -1;
-          }
-          if (a.ID > b.ID) {
-            return 1;
-          }
-          break;
-        case "firstname":
-          if (a.firstname < b.firstname) {
-            return -1;
-          }
-          if (a.firstname > b.firstname) {
-            return 1;
-          }
-          break;
-        case "lastname":
-          if (a.lastname < b.lastname) {
-            return -1;
-          }
-          if (a.lastname > b.lastname) {
-            return 1;
-          }
-          break;
-        case "mail":
-          if (a.mail < b.mail) {
-            return -1;
-          }
-          if (a.mail > b.mail) {
-            return 1;
-          }
-          break;
-        default:
-          return 0;
-      }
+    if (a.lastname < b.lastname) {
+      return -1;
     }
-    // if (a.filterChoice < b.filterChoice) {
-    //   return -1;
-    // }
-    // if (a.filterChoice > b.filterChoice) {
-    //   return 1;
-    // }
-    // return 0;
+    if (a.lastname > b.lastname) {
+      return 1;
+    }
+    return 0;
   };
 
   // UseEffect on mounting component
@@ -337,15 +283,6 @@ const Home = () => {
     }
   }, [refreshData]);
 
-  // UseEffect to sort by filter choice
-  useEffect(() => {
-    if (userData) {
-      const sortedData = userData.sort(sortByChoice);
-      setUserData(sortedData);
-      //setUserData(userData.sort(sortByChoice));
-    }
-  }, [filterChoice]);
-
   return (
     <div className="Home">
       <h1>Gestionnaire d'utilisateurs</h1>
@@ -359,50 +296,6 @@ const Home = () => {
       >
         &#10133;&nbsp;&nbsp;Ajouter
       </button>
-
-      <div className="filter-container">
-        <h5>Filtrer par :</h5>
-        <button
-          className={
-            filterChoice === "id"
-              ? "filter-button filter-active"
-              : "filter-button"
-          }
-          onClick={() => handleFilterChoice("id")}
-        >
-          ID
-        </button>
-        <button
-          className={
-            filterChoice === "firstname"
-              ? "filter-button filter-active"
-              : "filter-button"
-          }
-          onClick={() => handleFilterChoice("firstname")}
-        >
-          Prénom
-        </button>
-        <button
-          className={
-            filterChoice === "lastname"
-              ? "filter-button filter-active"
-              : "filter-button"
-          }
-          onClick={() => handleFilterChoice("lastname")}
-        >
-          Nom
-        </button>
-        <button
-          className={
-            filterChoice === "mail"
-              ? "filter-button filter-active"
-              : "filter-button"
-          }
-          onClick={() => handleFilterChoice("mail")}
-        >
-          Email
-        </button>
-      </div>
 
       {/* Container to create a new user */}
       <div
