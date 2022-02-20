@@ -120,17 +120,19 @@ const Home = () => {
             })
             .then((result) => {
               if (result.status === 200) {
-                Swal.fire(
-                  "Ajouté",
-                  "L'utilisateur a bien été ajouté",
-                  "success"
-                );
+                Swal.fire({
+                  title: "Ajouté",
+                  text: "L'utilisateur a bien été ajouté",
+                  icon: "success",
+                  confirmButtonColor: "green",
+                });
               } else {
-                Swal.fire(
-                  "Erreur",
-                  "Une erreur s'est produite lors de l'ajout",
-                  "danger"
-                );
+                Swal.fire({
+                  title: "Erreur",
+                  text: "Une erreur s'est produite lors de l'ajout",
+                  icon: "danger",
+                  confirmButtonColor: "red",
+                });
               }
             });
         };
@@ -207,17 +209,19 @@ const Home = () => {
             .put(`http://localhost:3001/users/`, valuesToUpdate)
             .then((result) => {
               if (result.status === 200) {
-                Swal.fire(
-                  "Modifié",
-                  "L'utilisateur a bien été modifié",
-                  "success"
-                );
+                Swal.fire({
+                  title: "Modifié",
+                  text: "L'utilisateur a bien été modifié",
+                  icon: "success",
+                  confirmButtonColor: "green",
+                });
               } else {
-                Swal.fire(
-                  "Erreur",
-                  "Une erreur s'est produite lors de la modification",
-                  "danger"
-                );
+                Swal.fire({
+                  title: "Erreur",
+                  text: "Une erreur s'est produite lors de la modification",
+                  icon: "danger",
+                  confirmButtonColor: "red",
+                });
               }
             });
         };
@@ -245,11 +249,12 @@ const Home = () => {
             .delete(`http://localhost:3001/users/${userId}`)
             .then((result) => {
               if (result.status === 200) {
-                Swal.fire(
-                  "Supprimé",
-                  "L'utilisateur a bien été supprimé",
-                  "success"
-                );
+                Swal.fire({
+                  title: "Supprimé",
+                  text: "L'utilisateur a bien été supprimé",
+                  icon: "success",
+                  confirmButtonColor: "green",
+                });
               }
             });
         };
